@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bantuin</string>
+    <string name="app_subtitle">Alat Bantu Siswa &amp; Mahasiswa</string>
+    <string name="app_description">Aplikasi yang memiliki berbagai fitur bermanfaat dan berguna bagi siswa dan mahasiswa dalam mengerjakan tugas maupun proyek.</string>
+    <string name="developer_id">DebDev</string>
+    <string name="developer_name">Debby Juandi Putra</string>
+    <string name="contact_email">bantuin.help@gmail.com</string>
+</resources>
