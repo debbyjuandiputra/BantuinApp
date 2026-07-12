@@ -58,11 +58,11 @@ val featureList = listOf(
     ),
     FeatureItem(
         5, "Base64 Encode & Decode", Icons.Default.Code,
-        listOf(FeatureCategory.PROGRAMMING), "base64", enabled = false
+        listOf(FeatureCategory.PROGRAMMING), "base64"
     ),
     FeatureItem(
         6, "URL Encode & Decode", Icons.Default.Link,
-        listOf(FeatureCategory.PROGRAMMING), "url_encode", enabled = false
+        listOf(FeatureCategory.PROGRAMMING), "url_encode"
     ),
     FeatureItem(
         7, "To Do List Modern", Icons.Default.Checklist,
@@ -74,11 +74,11 @@ val featureList = listOf(
     ),
     FeatureItem(
         9, "Kalkulator Ilmiah", Icons.Default.Calculate,
-        listOf(FeatureCategory.PERHITUNGAN), "calc_scientific", enabled = false
+        listOf(FeatureCategory.PERHITUNGAN), "calc_scientific"
     ),
     FeatureItem(
         10, "Kalkulator Statistik", Icons.Default.BarChart,
-        listOf(FeatureCategory.PERHITUNGAN), "calc_statistic", enabled = false
+        listOf(FeatureCategory.PERHITUNGAN), "calc_statistic"
     ),
     FeatureItem(
         11, "Hapus Latar Belakang", Icons.Default.Image,

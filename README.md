@@ -11,23 +11,39 @@ Aplikasi Android (Kotlin + Jetpack Compose) dengan fitur-fitur bantu tugas untuk
 
 ## ⚠️ Langkah WAJIB sebelum project bisa di-build
 
-### 1. Generate Gradle Wrapper
-Karena project ini dibuat di luar Android Studio, file biner `gradle/wrapper/gradle-wrapper.jar`, `gradlew`, dan `gradlew.bat` **belum ada**. Cara termudah:
+## ✅ Gradle Wrapper — sudah tersedia di project ini
+File `gradlew`, `gradlew.bat`, dan `gradle/wrapper/gradle-wrapper.jar` **sudah ada** di dalam zip ini (Gradle 8.4). Kamu tidak perlu generate manual lagi — tinggal `git add .` dan push, GitHub Actions langsung bisa jalan.
 
-1. Buka folder project ini di **Android Studio** (File → Open).
-2. Android Studio otomatis mendeteksi & membuatkan file wrapper saat sinkronisasi pertama.
-3. Atau via terminal (kalau sudah punya Gradle lokal): `gradle wrapper --gradle-version 8.4`
-
-Setelah wrapper ter-generate, barulah workflow GitHub Actions (`.github/workflows/build.yml`) bisa jalan otomatis setiap push ke branch `main`.
+Kalau di device kamu file `gradlew` kehilangan izin eksekusi setelah extract zip, jalankan:
+```bash
+chmod +x gradlew
+```
 
 ### 2. Setup Firebase (untuk sistem login/register)
 1. Buat project baru di [Firebase Console](https://console.firebase.google.com).
 2. Tambahkan Android App dengan package name **`com.debdev.bantuin`**.
-3. Download `google-services.json`, taruh di folder `app/google-services.json`.
+3. Download `google-services.json`, taruh di folder `app/google-services.json` **untuk development lokal saja**.
 4. Aktifkan **Firestore Database** (mode production, lalu atur rules sesuai kebutuhan keamanan).
 5. Buat collection `users` (akan terisi otomatis begitu ada yang register).
 
-Tanpa langkah ini, fitur login/register tidak akan berfungsi karena project belum terhubung ke Firebase manapun.
+### 3. ⚠️ PENTING — google-services.json JANGAN di-commit ke GitHub
+File ini berisi API key & config Firebase kamu. File `.gitignore` di project ini **sudah otomatis mengabaikan** `app/google-services.json` supaya tidak ke-push ke repo publik.
+
+**Supaya GitHub Actions tetap bisa build (butuh file ini saat compile), pakai GitHub Secrets:**
+
+1. Buka repo GitHub kamu → **Settings** → **Secrets and variables** → **Actions**
+2. Klik **New repository secret**
+3. Name: `GOOGLE_SERVICES_JSON`
+4. Value: **paste seluruh isi** file `google-services.json` kamu (buka filenya, copy semua isinya)
+5. Save
+
+Workflow `.github/workflows/build.yml` **sudah dikonfigurasi** untuk otomatis membuat `app/google-services.json` dari secret ini saat build — kamu tidak perlu ubah apa-apa lagi, cukup pastikan secret-nya sudah diisi.
+
+| File | Di-commit ke GitHub? |
+|------|-----------|
+| `gradlew`, `gradlew.bat`, `gradle-wrapper.jar` | ✅ Ya (sudah ada) |
+| `google-services.json` | ❌ Jangan — pakai GitHub Secrets |
+| `.github/workflows/build.yml` | ✅ Ya (sudah dikonfigurasi) |
 
 ---
 
@@ -37,11 +53,15 @@ Tanpa langkah ini, fitur login/register tidak akan berfungsi karena project belu
 | 1 | Konversi Dokumen | Dokumen | UI lengkap (pilih file & jenis konversi). Mesin konversi asli (PDF↔DOCX, XLSX↔CSV) masih placeholder — lihat catatan di bawah |
 | 2 | Aplikasi Premium | Lainnya | CapCut Pro & Canva Pro, masing-masing dengan pilihan 7 hari / 1 bulan, mengarah ke link Lynk.id kamu |
 | 3 | Cek Panjang Karakter | Dokumen/Lainnya | Input teks langsung berfungsi penuh. Input via file: `.txt` terbaca penuh; docx/pdf/dll masih placeholder |
+| 5 | Base64 Encode & Decode | Programming | Full berfungsi, offline, tombol tukar & salin hasil |
+| 6 | URL Encode & Decode | Programming | Full berfungsi, offline, tombol tukar & salin hasil |
+| 9 | Kalkulator Ilmiah | Perhitungan | Keypad lengkap: trig, log, ln, sqrt, faktorial, pangkat, pi/e — evaluator ekspresi custom, tanpa library luar |
+| 10 | Kalkulator Statistik | Perhitungan | Input angka dipisah koma → mean, median, modus, min/max, range, varians, standar deviasi |
 | 12 | UUID Generator | Programming | Generate UUID v4 + salin ke clipboard |
 | 13 | Generate Kode Authenticator | Programming | TOTP standar Google Authenticator (HMAC-SHA1), bisa pilih 6/8 digit & periode 30/60 detik |
 
-## 🔒 Fitur yang sengaja di-nonaktifkan dulu (abu-abu, tidak bisa diklik)
-Scan Dokumen, Base64 Encode/Decode, URL Encode/Decode, To Do List, Alarm & Pengingat, Kalkulator Ilmiah, Kalkulator Statistik, Hapus Latar Belakang — sesuai instruksi, semua ini ditampilkan tapi belum aktif.
+## 🔒 Fitur yang masih dinonaktifkan (abu-abu, tidak bisa diklik)
+Scan Dokumen, To Do List Modern, Alarm & Pengingat, Hapus Latar Belakang — perlu infrastruktur tambahan (kamera, penjadwalan sistem/notifikasi, atau API pihak ketiga) sehingga belum diaktifkan di iterasi ini.
 
 ---
 

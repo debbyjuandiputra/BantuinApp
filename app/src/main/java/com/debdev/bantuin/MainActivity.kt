@@ -114,6 +114,18 @@ class MainActivity : ComponentActivity() {
                     composable("authenticator") {
                         AuthenticatorScreen(onBack = { navController.popBackStack() })
                     }
+                    composable("base64") {
+                        Base64Screen(onBack = { navController.popBackStack() })
+                    }
+                    composable("url_encode") {
+                        UrlEncodeScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable("calc_scientific") {
+                        ScientificCalculatorScreen(onBack = { navController.popBackStack() })
+                    }
+                    composable("calc_statistic") {
+                        StatisticalCalculatorScreen(onBack = { navController.popBackStack() })
+                    }
                 }
             }
         }
